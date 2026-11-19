@@ -1,0 +1,177 @@
+@layer components {
+  .closed-notice {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    background: #fff4e8;
+    color: #754321;
+    border-bottom: 1px solid #f4e2cf;
+    font-size: .8125rem;
+    line-height: 1.5;
+  }
+  .closed-notice strong { font-weight: 650; }
+
+  .health-document-actions {
+    grid-area: documents;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .3rem 1.35rem;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .prescription-action, .wallet-action, .document-send, .document-primary, .document-link, .download-document {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .65rem;
+    max-width: 100%;
+    min-width: 0;
+    font-weight: 700;
+    line-height: 1.35;
+    text-align: center;
+    cursor: pointer;
+  }
+  .prescription-action {
+    min-height: 54px;
+    padding: .8rem 1.35rem;
+    border-radius: .9rem;
+    color: #fff;
+    background: var(--color-secondary-700);
+    box-shadow: 0 5px 13px -7px #30307975;
+    font-size: 1rem;
+    transition: background .18s, transform .18s;
+  }
+  .prescription-action:hover { background: var(--color-secondary-800); transform: translateY(-1px); }
+  .prescription-action > span { text-align: left; }
+  .prescription-action strong { display: block; font-size: 1.0625rem; line-height: 1.35; }
+  .prescription-action small { display: block; margin-top: .15rem; font-size: .8125rem; font-weight: 500; color: #efefff; }
+  .prescription-action:active { transform: translateY(0); }
+  .wallet-action { color: var(--color-secondary-700); min-height: 48px; font-size: .9375rem; }
+  .wallet-action:hover, .document-link:hover, .download-document:hover { text-decoration: underline; text-underline-offset: .2em; }
+  .care-shortcuts {
+    width: 100%; max-width: 100vw; overflow-x: hidden;
+    background: white;
+    border-bottom: 1px solid #e7e8ef;
+  }
+  .care-access-layout { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "heading documents" "tiles tiles"; align-items: center; gap: 1.15rem; }
+  .care-heading-row { grid-area: heading; min-width: 0; }
+  .care-heading-row h2 { color: var(--color-secondary-950); font-size: clamp(1.25rem, 1.15rem + .6vw, 1.55rem); line-height: 1.3; font-weight: 800; letter-spacing: -.035em; }
+  .care-heading-row p { color: #555b6c; font-size: .9375rem; margin-top: .25rem; }
+  .care-grid { grid-area: tiles; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .75rem; }
+  .care-tile {
+    display: flex; align-items: center; gap: .7rem;
+    min-height: 76px; min-width: 0; max-width: 100%;
+    padding: .85rem .95rem;
+    border: 1px solid #dedfe9; border-radius: 1rem;
+    background: #fff; color: var(--color-secondary-950);
+    text-align: left; cursor: pointer;
+    transition: border-color .18s, background .18s, transform .18s;
+  }
+  .care-tile:hover { border-color: #b7b7d3; background: #fafaff; transform: translateY(-2px); }
+  .care-tile:active { transform: translateY(0); }
+  .care-tile[aria-pressed="true"] { border-color: var(--color-secondary-600); background: #f4f4fc; }
+  .care-icon { display: grid; place-items: center; flex: 0 0 auto; width: 2.75rem; height: 2.75rem; border-radius: .8rem; }
+  .care-icon-pain-fever, .care-icon-digestion, .care-icon-diapers { color: #a84b13; background: #fff0e2; }
+  .care-icon-cold-cough, .care-icon-pressure-ongoing { color: var(--color-secondary-700); background: #efeffb; }
+  .care-tile-name { min-width: 0; font-size: 1rem; line-height: 1.35; font-weight: 750; }
+  .care-chevron { margin-left: auto; width: 1rem; height: 1rem; color: #81849d; flex-shrink: 0; }
+
+  .health-dialog {
+    position: fixed; inset: 0; margin: auto;
+    width: min(32rem, calc(100% - 2rem)); min-width: 0; max-width: 100vw;
+    height: fit-content; max-height: calc(100dvh - 2rem);
+    overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain;
+    border: 0; border-radius: 1.5rem;
+    background: #fff; color: var(--color-secondary-950);
+    box-shadow: 0 18px 70px #18183b32;
+  }
+  .health-dialog[open] { animation: photo-sheet-in .18s ease-out; }
+  .health-dialog::backdrop { background: #16172f66; backdrop-filter: blur(4px); }
+  .health-dialog-content { padding: clamp(1.25rem, 4vw, 2rem); min-width: 0; overflow-wrap: anywhere; }
+  .health-dialog-header { position: relative; padding-top: .25rem; }
+  .document-eyebrow { display: flex; align-items: center; gap: .45rem; color: var(--color-primary-700); font-size: .875rem; font-weight: 700; padding-right: 3rem; }
+  .document-close { position: absolute; top: -.5rem; right: -.3rem; display: grid; place-items: center; width: 44px; height: 44px; background: #f1f2f7; color: var(--color-secondary-800); border-radius: .8rem; cursor: pointer; }
+  .health-dialog h2 { margin-top: .85rem; padding-right: .5rem; font-size: clamp(1.45rem, 1.1rem + 1.4vw, 1.9rem); line-height: 1.2; font-weight: 800; letter-spacing: -.035em; outline: none; }
+  .document-intro { margin-top: .55rem; line-height: 1.55; color: #53596a; font-size: 1rem; }
+  .document-options { display: grid; gap: .75rem; margin-top: 1.4rem; }
+  .document-option {
+    display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: .9rem;
+    width: 100%; min-height: 76px; max-width: 100%; padding: 1rem;
+    text-align: left; color: var(--color-secondary-900); background: #fff;
+    border: 1px solid #d8daea; border-radius: 1rem; cursor: pointer; transition: border-color .16s, background .16s;
+  }
+  .document-option:hover { background: #fafaff; border-color: var(--color-secondary-400); }
+  .document-option strong, .document-saved-item strong { display: block; font-size: 1.0625rem; font-weight: 750; line-height: 1.35; }
+  .document-option small, .document-saved-item small { display: block; margin-top: .25rem; color: #5a6070; font-size: .875rem; }
+  .option-symbol { display: grid; flex-shrink: 0; place-items: center; width: 2.85rem; height: 2.85rem; border-radius: .85rem; color: var(--color-secondary-700); background: #efeffa; }
+  .option-symbol.warm { background: #fff0e2; color: var(--color-primary-700); }
+  .option-arrow { width: 1.1rem; color: #84869c; }
+  .document-link { min-height: 48px; color: var(--color-secondary-700); padding: .65rem .25rem; margin-top: .55rem; }
+  .document-privacy { display: flex; align-items: flex-start; gap: .55rem; font-size: .875rem; line-height: 1.5; color: #5c6270; border-top: 1px solid #e6e7ed; padding-top: 1rem; margin-top: .9rem; }
+  .health-dialog svg, .health-document-actions svg { flex-shrink: 0; }
+  .document-privacy svg { margin-top: .1rem; }
+  .document-preview { display: block; position: relative; width: 100%; padding: .5rem; border-radius: .9rem; border: 1px solid #e1e2e9; background: #f6f7fa; margin-top: 1rem; cursor: zoom-in; }
+  .document-preview img { height: clamp(104px, 23dvh, 200px); width: 100%; object-fit: contain; }
+  .document-preview span { position: absolute; right: .55rem; bottom: .55rem; display: inline-flex; align-items: center; gap: .3rem; background: white; color: var(--color-secondary-800); padding: .3rem .55rem; border: 1px solid #e1e2e9; border-radius: .5rem; font-weight: 650; font-size: .8125rem; }
+  .document-full-photo { width: 100%; height: auto; margin-top: 1rem; }
+  .document-type { margin-top: 1rem; }
+  .document-type label { display: block; font-weight: 700; font-size: .9375rem; margin-bottom: .4rem; }
+  .document-type > div { position: relative; }
+  .document-type svg { pointer-events: none; position: absolute; top: 50%; left: .8rem; transform: translateY(-50%); color: var(--color-secondary-600); }
+  .document-type select { min-width: 0; max-width: 100%; width: 100%; min-height: 48px; padding: .6rem .7rem .6rem 2.6rem; border: 1px solid #cdd0df; border-radius: .7rem; font-size: 1rem; background: #fff; }
+  .document-tools { margin-top: .6rem; display: flex; flex-wrap: wrap; gap: .25rem .65rem; }
+  .document-tools button { display: inline-flex; align-items: center; gap: .4rem; padding: .45rem .3rem; min-height: 44px; font-size: .9rem; color: var(--color-secondary-700); font-weight: 700; cursor: pointer; }
+  .document-tools button:disabled { color: #376847; cursor: default; }
+  .document-caption { color: #5a6070; font-size: .875rem; line-height: 1.5; }
+  .document-handoff { padding-top: 1rem; margin-top: 1rem; border-top: 1px solid #e5e6ed; }
+  .document-send, .document-primary { min-height: 54px; width: 100%; padding: .8rem 1rem; color: white; border-radius: .85rem; font-size: 1.0625rem; }
+  .document-send { background: #147742; }
+  .document-send:hover { background: #105e34; }
+  .document-send:disabled { background: #416e54; cursor: wait; }
+  .document-primary { background: var(--color-secondary-700); }
+  .document-handoff p { margin: .65rem 0 .25rem; font-size: .9375rem; line-height: 1.5; color: #515867; }
+  .download-document { min-height: 44px; color: var(--color-secondary-700); font-size: .9rem; }
+  .document-handoff .document-manual-intro { margin-top: 0; }
+  .document-handoff .download-document { width: 100%; min-height: 52px; margin: .5rem 0; border: 1px solid #cdd0df; border-radius: .85rem; font-size: 1rem; }
+  .document-feedback { display: flex; align-items: center; gap: .5rem; font-size: .9375rem; margin-top: .8rem; padding: .75rem; border-radius: .65rem; background: var(--color-secondary-50); color: var(--color-secondary-900); }
+  .document-feedback.error { background: #fff1e6; color: #813d16; }
+  .document-empty { display: flex; align-items: center; flex-direction: column; text-align: center; margin: 1.25rem 0; padding: 1.1rem; background: #f7f7fc; border-radius: 1rem; }
+  .document-empty h3 { margin: .7rem 0 .3rem; font-weight: 750; font-size: 1.1rem; }
+  .document-empty p { line-height: 1.5; color: #555c6b; }
+  .document-list { margin: 1rem 0; }
+  .document-list li { display: flex; align-items: center; gap: .6rem; min-width: 0; justify-content: space-between; border-bottom: 1px solid #e3e4ec; padding: .65rem 0; }
+  .document-saved-item { display: flex; align-items: center; gap: .8rem; flex: 1; min-width: 0; text-align: left; cursor: pointer; }
+  .document-saved-item img { width: 54px; height: 64px; object-fit: cover; border: 1px solid #e2e3ed; border-radius: .45rem; }
+  .document-delete { width: 44px; height: 44px; border-radius: .7rem; background: #f6f6fa; display: grid; place-items: center; flex-shrink: 0; color: #6c5060; cursor: pointer; }
+  .document-delete-confirm > div { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .5rem; }
+  .document-delete-confirm button { min-height: 44px; padding: .6rem .8rem; border: 1px solid #dcdde7; border-radius: .6rem; font-weight: 650; cursor: pointer; }
+  .document-delete-confirm button:last-child { color: #973125; }
+  @media (max-width: 63.99rem) {
+    .care-access-layout { grid-template-columns: minmax(0, 1fr); grid-template-areas: "documents" "heading" "tiles"; gap: .8rem; }
+    .health-document-actions { padding-bottom: .5rem; border-bottom: 1px solid #e7e8ef; }
+  }
+  @media (max-width: 70rem) and (min-width: 48rem) {
+    .care-tile { flex-direction: column; justify-content: center; gap: .5rem; text-align: center; }
+    .care-chevron { display: none; }
+  }
+  @media (max-width: 47.99rem) {
+    .care-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }
+    .care-tile { min-height: 72px; gap: .55rem; padding: .65rem .7rem; }
+    .care-tile:last-child { grid-column: 1 / -1; }
+    .care-chevron { display: none; }
+    .care-tile:last-child .care-chevron { display: block; }
+    .care-icon { height: 2.25rem; width: 2.25rem; border-radius: .65rem; }
+    .care-icon svg { height: 1.6rem; width: 1.6rem; }
+    .care-tile-name { font-size: 1rem; }
+  }
+  @media (max-width: 39.99rem) {
+    .health-document-actions { gap: .25rem; }
+    .prescription-action { width: 100%; }
+    .wallet-action { padding-inline: .25rem; }
+    .health-dialog { width: 100%; max-height: 94dvh; margin: auto auto 0; border-radius: 1.4rem 1.4rem 0 0; }
+    .health-dialog-content { padding-bottom: max(1.2rem, env(safe-area-inset-bottom)); }
+    .document-option { padding: .8rem; gap: .6rem; }
+  }
+  @keyframes photo-sheet-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+}

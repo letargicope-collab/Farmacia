@@ -1,0 +1,208 @@
+@font-face {
+  font-family: "Marquinhos Signature";
+  src: url("../assets/assinatura-marquinhos.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+.sm-opening {
+  --opening-ink: #303075;
+  --opening-orange: #e96e20;
+  --opening-ease: cubic-bezier(.19, 1, .22, 1);
+  --rail-space: clamp(1.5rem, 6.9vw, 8rem);
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  isolation: isolate;
+  width: 100%;
+  max-width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: #fffaf3;
+  color: var(--opening-ink);
+  outline: none;
+  font-family: var(--font-sans);
+}
+.sm-opening[data-leaving="true"] { animation: opening-curtain var(--opening-exit) cubic-bezier(.55, 0, .2, 1) both; }
+.opening-paper, .opening-art, .opening-rails { position: absolute; inset: 0; }
+.opening-paper {
+  background:
+    radial-gradient(ellipse at 2% 99%, #f5ede3 0, transparent 40%),
+    radial-gradient(ellipse at 84% 23%, #fff2de 0, transparent 48%),
+    #fffaf3;
+}
+.opening-art { pointer-events: none; overflow: hidden; }
+.opening-sun {
+  position: absolute;
+  width: min(79vw, 137vh);
+  aspect-ratio: 1;
+  right: -17.5%;
+  bottom: -46%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 24% 18%, #ffbc7d 0%, #ffac69 38%, #fd9650 72%, #f78f4b 100%);
+  box-shadow: inset 1px 1px 0 #fff9, inset 0 15px 55px #ffeece38;
+  animation: opening-sun 1.45s var(--opening-ease) both;
+}
+.opening-sun::before, .opening-sun::after {
+  content: ""; position: absolute; inset: -2.1%; border-radius: 50%; border: 1px solid #e5a77365;
+}
+.opening-sun::after { inset: -5%; border-color: #dfac7c36; }
+.opening-orbit { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.opening-orbit path {
+  stroke: #ce8a5c;
+  stroke-width: 1.1;
+  opacity: .35;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  animation: opening-draw 2.2s .08s cubic-bezier(.22, .68, .3, 1) both;
+}
+.opening-orbit path + path { opacity: .18; animation-delay: .16s; }
+.opening-rails {
+  --edge: var(--rail-space);
+  --safe-left: max(var(--edge), env(safe-area-inset-left));
+  --safe-right: max(var(--edge), env(safe-area-inset-right));
+}
+.opening-top, .opening-bottom {
+  position: absolute;
+  z-index: 3;
+  left: var(--safe-left);
+  right: var(--safe-right);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.opening-top { top: max(clamp(1.4rem, 5.4vh, 4rem), env(safe-area-inset-top)); }
+.opening-brand { width: clamp(10rem, 17.2vw, 17rem); min-width: 0; }
+.opening-brand img {
+  display: block; width: 100%; height: auto;
+  animation: opening-brand-in .8s var(--opening-ease) both;
+}
+.opening-skip, .opening-pause {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; cursor: pointer; line-height: 1.2;
+  color: var(--opening-ink); flex-shrink: 0;
+}
+.opening-skip {
+  gap: .65rem; padding: .75rem 1.05rem;
+  border: 1px solid #b4a99a80; border-radius: 999px;
+  background: #fffaf580; font-size: .875rem; font-weight: 600;
+  transition: background .2s, border-color .2s;
+}
+.opening-skip:hover { border-color: var(--opening-ink); background: #fffaf5; }
+.opening-skip svg { transition: transform .2s; }
+.opening-skip:hover svg { transform: translateX(3px); }
+.opening-copy {
+  position: absolute; z-index: 2;
+  left: var(--safe-left); top: 50%; transform: translateY(-48%);
+  width: calc(53% - var(--safe-left));
+}
+.opening-headline {
+  margin: 0; font-size: clamp(4.1rem, min(8.45vw, 14.5vh), 9rem);
+  line-height: 1; font-weight: 750; letter-spacing: -.072em;
+}
+.opening-line { display: block; overflow: hidden; padding: .12em .1em .10em 0; margin-block: -.11em; }
+.opening-line > span {
+  display: block; transform-origin: left center;
+  animation: opening-line-in .94s .08s var(--opening-ease) both;
+}
+.opening-line:nth-child(2) > span { animation-delay: .15s; }
+.opening-line:nth-child(3) > span { animation-delay: .22s; }
+.opening-family { color: var(--opening-orange); }
+.opening-period { color: #ee9456; }
+.opening-greeting {
+  display: flex; align-items: center; gap: 1rem;
+  margin-top: clamp(1.4rem, 3.75vh, 2.7rem);
+  font-size: clamp(.95rem, 1.25vw, 1.2rem); line-height: 1.5;
+  color: #626176; font-weight: 500; letter-spacing: -.025em;
+  animation: opening-caption-in .85s .4s var(--opening-ease) both;
+}
+.opening-greeting-rule { width: 2.6rem; height: 2px; flex: 0 0 auto; background: var(--opening-orange); }
+.opening-portrait {
+  position: absolute; inset: 0; margin: 0; pointer-events: none;
+}
+.opening-mascot {
+  position: absolute; left: 51%; top: 15%;
+  width: min(62vw, 100vh); max-width: none; height: auto;
+  transform-origin: 49% 66%;
+  animation: opening-mascot-in 1.5s .04s var(--opening-ease) both;
+}
+.opening-autograph {
+  position: absolute; z-index: 1; left: 50%; top: 34%;
+  width: max-content;
+  color: #4b4774; transform: rotate(-9deg);
+  font-family: "Marquinhos Signature", cursive; font-weight: 500;
+  font-size: clamp(1.7rem, 2.7vw, 2.8rem); line-height: 1.05;
+}
+.opening-autograph span {
+  display: block; padding: .2em .22em .14em .08em;
+  animation: opening-sign 1.05s .75s var(--opening-ease) both;
+}
+.opening-autograph svg {
+  display: block; width: 2.1em; height: auto; margin: -.03em -.4em 0 auto;
+  stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+}
+.opening-autograph path { stroke-dasharray: 1; animation: opening-draw .75s 1.2s ease-out both; }
+.opening-bottom { bottom: max(1.6rem, env(safe-area-inset-bottom)); }
+.opening-time {
+  display: flex; align-items: center; gap: .85rem;
+  font-size: .65rem; font-weight: 700; letter-spacing: .17em; color: #696472;
+}
+.opening-track {
+  display: block; width: clamp(4.5rem, 8.5vw, 8.5rem); height: 3px;
+  overflow: hidden; background: #dbd8d8; border-radius: 2px;
+}
+.opening-track > span {
+  display: block; height: 100%; background: var(--opening-orange); transform-origin: left;
+  animation: opening-time var(--opening-play) linear both;
+}
+.opening-pause { gap: .5rem; font-size: .8125rem; font-weight: 600; padding: .65rem .85rem; border-radius: 999px; background: #fff9edc9; }
+.opening-pause:hover { background: #fffbf5; }
+.sm-opening[data-paused="true"] * { animation-play-state: paused; }
+
+@keyframes opening-brand-in { from { opacity: .45; transform: translateY(5px); } }
+@keyframes opening-line-in { from { transform: translateY(108%) rotate(2deg); } to { transform: none; } }
+@keyframes opening-sun { from { transform: translate(5%, 7%) scale(.94); } to { transform: none; } }
+@keyframes opening-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes opening-sign { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
+@keyframes opening-mascot-in {
+  0% { opacity: .15; transform: translate(7%, 6%) rotate(3deg) scale(.96); }
+  67% { opacity: 1; transform: translate(-.5%, -.7%) rotate(-.65deg) scale(1.008); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes opening-caption-in { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: none; } }
+@keyframes opening-time { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes opening-curtain { from { opacity: 1; } to { opacity: 0; transform: translateY(-8px); } }
+
+@media (max-width: 48rem) and (orientation: portrait) {
+  .sm-opening { --rail-space: clamp(1.2rem, 6.5vw, 2.8rem); }
+  .opening-top { top: max(1.25rem, env(safe-area-inset-top)); gap: .65rem; }
+  .opening-brand { width: clamp(8.5rem, 39vw, 12.5rem); }
+  .opening-skip { font-size: .78rem; padding-inline: .85rem; gap: .4rem; }
+  .opening-copy { top: clamp(5.25rem, 15dvh, 11.5rem); transform: none; width: calc(100% - var(--safe-left) - var(--safe-right)); }
+  .opening-headline { font-size: clamp(2.8rem, min(13.5vw, 7.8dvh), 5.2rem); }
+  .opening-greeting { font-size: clamp(.83rem, 3.3vw, 1.1rem); margin-top: 1rem; gap: .65rem; }
+  .opening-greeting-rule { width: 1.5rem; }
+  .opening-sun { width: 146vw; right: -48%; bottom: -14%; }
+  .opening-mascot { left: 20%; top: 44%; width: min(103vw, 56dvh); }
+  .opening-autograph { left: var(--safe-left); top: 59%; font-size: clamp(1.5rem, 6.8vw, 2.5rem); }
+  .opening-bottom { bottom: max(.95rem, env(safe-area-inset-bottom)); }
+}
+@media (max-height: 33rem) and (orientation: landscape) {
+  .sm-opening { --rail-space: 5vw; }
+  .opening-top { top: max(.65rem, env(safe-area-inset-top)); }
+  .opening-brand { width: clamp(7rem, 17vw, 10rem); }
+  .opening-copy { top: 51%; }
+  .opening-headline { font-size: clamp(2.3rem, 12vh, 4rem); }
+  .opening-greeting { margin-top: .75rem; font-size: .8rem; }
+  .opening-bottom { bottom: max(.3rem, env(safe-area-inset-bottom)); }
+  .opening-mascot { width: min(56vw, 108vh); top: 16%; left: 56%; }
+  .opening-autograph { left: 51%; top: 36%; font-size: 1.55rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sm-opening, .sm-opening *, .sm-opening *::before, .sm-opening *::after { animation: none !important; transition: none !important; }
+  .opening-time, .opening-pause { visibility: hidden; }
+}
